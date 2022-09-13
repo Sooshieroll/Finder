@@ -11,9 +11,9 @@ Fork & Clone this repo.
 - [ ] In this space below, list **THREE** ideas for your Project 2. For each idea, include [user stories](https://www.atlassian.com/agile/project-management/user-stories) for each idea and a link to the API(s) you want to use for it.
 
 --------------------------------------------------------
-1. 
-2. 
-3.
+1. Flight Finder/Airport Details
+2. Meal Planning/Recipes/Groceries
+3. Workouts/Exercises 
 ---------------------------------------------------------
 
 - [ ] Make a PR when you're done!
@@ -114,3 +114,68 @@ Make a PR when you're done!
 - [ ] Content is responsive to screen size changes
 - [ ] No glaring alignment or grid errors
 ```
+
+
+## TIMETABLE LOOKUP
+## https://rapidapi.com/flightlookup/api/timetable-lookup/
+
+## FLIGHT DATA
+## https://rapidapi.com/Travelpayouts/api/flight-data/
+
+## AIRPORT INFO
+## https://rapidapi.com/Active-api/api/airport-info/
+
+## COMPARE FLIGHT PRICES
+## https://rapidapi.com/obryan-software-obryan-software-default/api/compare-flight-prices/
+
+As a user, i would like to find out best flights to destination
+
+Flights
+    - Airline
+    - Times
+    - Airport
+    - Duration
+Destination
+    - Airport
+    - Location
+Airplanes
+    - Model of Plane
+    - Dimensions of seats / economy/business/first
+
+
+Models:
+
+
+## WORKOUT MANAGER
+## https://wger.de/en/software/api
+
+
+As a user, i would like to find best workouts for different situations & different goals
+
+Location
+    - Gym
+    - At Home
+Intensity
+    - Low
+    - High
+
+
+## TASTY
+## https://rapidapi.com/apidojo/api/tasty/details
+
+As a user, i would like to find recipes for different situations
+
+Difficulty
+    - Easy
+    - Average
+    - Hard
+Time
+    - Short
+    - Long
+Recipe
+    - Number of Ingredients
+    - Ingredients
+    - Instructions
+    - Cuisine
+
+
