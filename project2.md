@@ -119,31 +119,44 @@ Make a PR when you're done!
 ## TIMETABLE LOOKUP
 ## https://rapidapi.com/flightlookup/api/timetable-lookup/
 
-## FLIGHT DATA
+## FLIGHT DATA - IDEAL
 ## https://rapidapi.com/Travelpayouts/api/flight-data/
+
+https://api.travelpayouts.com/aviasales/v3/prices_for_dates?origin=LON&destination=BCN&departure_at=2022-01&return_at=2022-02&unique=false&sorting=price&direct=false&currency=rub&limit=30&page=1&one_way=true&token=297b0f8fc6aee259bf5e3ca090c5d1a6
+
+## API KEY - 297b0f8fc6aee259bf5e3ca090c5d1a6
 
 ## AIRPORT INFO
 ## https://rapidapi.com/Active-api/api/airport-info/
 
+## Travel Advisor
+## API KEY - 096786359dmshf50b115415a56c4p1941d9jsn1ac864538b7d
+`
+## HOTELS
+## https://support.travelpayouts.com/hc/en-us/articles/115000343268-Hotels-data-API
+
+## FLIGHT DATA
+## https://support.travelpayouts.com/hc/en-us/articles/203956163
+
+## API KEY - 096786359dmshf50b115415a56c4p1941d9jsn1ac864538b7d
+`
+
 ## COMPARE FLIGHT PRICES
 ## https://rapidapi.com/obryan-software-obryan-software-default/api/compare-flight-prices/
 
-As a user, i would like to find out best flights to destination
+As a frequent flyer, I would like to know the best times to purchase tickets so that I can buy when prices drop. 
 
 Flights
     - Airline
     - Times
     - Airport
     - Duration
-Destination
-    - Airport
+Hotels
+    - Check-in
+    - Check-out
     - Location
-Airplanes
-    - Model of Plane
-    - Dimensions of seats / economy/business/first
+    - Costs
 
-
-Models:
 
 
 ## WORKOUT MANAGER
