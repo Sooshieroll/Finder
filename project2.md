@@ -136,7 +136,9 @@ https://api.travelpayouts.com/aviasales/v3/prices_for_dates?origin=LON&destinati
 ## https://support.travelpayouts.com/hc/en-us/articles/115000343268-Hotels-data-API
 
 ## FLIGHT DATA
-## https://support.travelpayouts.com/hc/en-us/articles/203956163
+## https://support.travelpayouts.com/hc/en-us/articles/
+    - Flight tickets for specific dates
+    - The calendar of prices for a month
 
 
 `

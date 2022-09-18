@@ -1,16 +1,16 @@
 {
   "development": {
-    "database": "express_auth_dev",
+    "database": "flight_deal_finder",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
-    "database": "express_auth_test",
+    "database": "flight_deal_finder",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {
-    "use_env_variable": "DATABASE_URL",
+    "use_env_variable": "flight_deal_finder",
     "dialect": "postgres",
     "dialectOptions": {
       "ssl": {

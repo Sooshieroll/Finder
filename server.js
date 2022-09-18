@@ -42,7 +42,10 @@ app.get('/', (req, res) => {
 });
 
 // access to all of our auth routes GET/auth/login, GET/auth/signup POST routes
+
 app.use('/auth', require('./controllers/auth'));
+app.use('/flights', require('./controllers/flights'));
+
 
 app.get('/profile', isLoggedIn, (req, res) => {
   const { id, name, email } = req.user.get();
