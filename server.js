@@ -45,6 +45,7 @@ app.get('/', (req, res) => {
 
 app.use('/auth', require('./controllers/auth'));
 app.use('/flights', require('./controllers/flights'));
+app.use('/IATA', require('./controllers/IATA'));
 
 
 app.get('/profile', isLoggedIn, (req, res) => {

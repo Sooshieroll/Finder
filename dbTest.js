@@ -7,15 +7,18 @@ async function createUser() {
     try {
         const newUser = await db.user.create({
             name: "My Name",
-            email: "myemail@gmail.com"
+            email: "myemail@gmail.com",
+            password: "lw12345678"
         });
         console.log('my new user >>>', newUser);
     } catch (error) {
         console.log('new user was not created b/c of >>>', error);
     }
-    
+
 }
+// createUser();
 // @todo run createUser function below
+
 
 // READ
 // find one user
@@ -24,7 +27,7 @@ async function findOneUser() {
         const user = await db.user.findOne({
             where: { id: 1 }
         });
-        console.log('current user here >>>', user);  
+        console.log('current user here >>>', user);
     } catch (error) {
         console.log('did not find user b/c of >>>', error);
     }
@@ -35,7 +38,7 @@ async function findOneUser() {
 async function findAllUsers() {
     try {
         const users = await db.user.findAll();
-        console.log('all users here >>>', users);  
+        console.log('all users here >>>', users);
     } catch (error) {
         console.log('did not find all users because of >>>', error);
     }
@@ -51,7 +54,7 @@ async function findOrCreate() {
                 name: 'Brian Smith',
             },
         });
-        console.log('all users here >>>', users);  
+        console.log('all users here >>>', users);
     } catch (error) {
         console.log('did not find all users because of >>>', error);
     }
@@ -87,3 +90,5 @@ async function deleteUser() {
     }
 }
 // @todo run deleteUser function below
+
+

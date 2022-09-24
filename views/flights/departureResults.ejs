@@ -1,0 +1,48 @@
+<br></br>
+<form method="GET" action="/flights/new" />
+<button type="submit">BACK TO SEARCH</button>
+</form>
+
+<br>
+<p>DEPARTURING FLIGHTS</p>
+<br>
+
+<% data.forEach(flight=> { %>
+    <p>Origin: <%= flight.origin %>
+    </p>
+    <p>Destination: <%= flight.destination %>
+    </p>
+    <p>Departure At: <%= flight.departure_at %>
+    </p>
+    <p>Cost: $<%= flight.price %>
+    </p>
+    <p>Duration: <%= flight.duration %> minutes
+    </p>
+    <br>
+    <p> RETURN FLIGHTS</p>
+    <br>
+    <% data.forEach(flight=> { %>
+        <p>Origin: <%= flight.destination %>
+        </p>
+        <p>Destination: <%= flight.origin %>
+        </p>
+        <p>Departure At: <%= flight.return_at %>
+        </p>
+        <p>Cost: $<%= flight.price %>
+        </p>
+        <p>Duration: <%= flight.duration %> minutes
+        </p>
+
+
+        <form method="POST" action="/flights/show">
+            <input type="text" value="<%= flight.origin %> name=" origin" hidden>
+            <input type="text" value="<%= flight.destination %> name=" destination" hidden>
+            <input type="text" value="<%= flight.departure_at %> name=" departure" hidden>
+
+            <button type="submit">Follow Flight</button>
+        </form>
+
+        <br>
+        <br>
+        <% }) %>
+            <% }) %>
