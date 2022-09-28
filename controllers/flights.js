@@ -28,6 +28,7 @@ router.get('/edit/:id', isLoggedIn, (req, res) => {
     res.render('./flights/edit', { flightId: parseInt(req.params.id) });
 });
 
+
 router.get('/show/:id', isLoggedIn, async (req, res) => {
     // pring flight to verify
     let flight = await db.Flight.findOne({
