@@ -18,10 +18,10 @@ module.exports = {
         type: Sequelize.STRING
       },
       departureAt: {
-        type: Sequelize.DATEONLY
+        type: Sequelize.DATE
       },
       returnAt: {
-        type: Sequelize.DATEONLY
+        type: Sequelize.DATE
       },
       direct: {
         type: Sequelize.BOOLEAN

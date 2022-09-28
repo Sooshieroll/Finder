@@ -6,51 +6,53 @@ const { urlencoded } = require('express');
 const { DatabaseError } = require('pg');
 require('dotenv').config();
 const moment = require('moment');
+const isLoggedIn = require('../middleware/isLoggedIn');
+const methodOverride = require('method-override');
+router.use(methodOverride('_method'));
 
 
-router.get('/', async (req, res) => {
+router.get('/index', isLoggedIn, async (req, res) => {
     //get all of the flights from the database
     let flights = await db.Flight.findAll();
     flights = flights.map(f => f.toJSON()); // removes all of the unnecessary data
     console.log(flights); // shows me all of the flight data -> previous Values
     //render the (flights/index) page
-    res.render('flights/index', { flights: flights });
-})
-
-router.get('/new', (req, res) => {
-    res.render('flights/new');
+    res.render('../views/index', { flights: flights });
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/new', isLoggedIn, (req, res) => {
+    res.render('flights/new', { didSearchFail: false });
+});
+
+router.get('/edit/:id', isLoggedIn, (req, res) => {
+    res.render('./flights/edit', { flightId: parseInt(req.params.id) });
+});
+
+router.get('/show/:id', isLoggedIn, async (req, res) => {
     // pring flight to verify
     let flight = await db.Flight.findOne({
-        where: { id: req.params.id }
+        where: { id: parseInt(req.params.id) }
     });
+
     flight = flight.toJSON();
     console.log('===== this is the show route ====');
     console.log(flight);
     // go to the database and grab one flight
-
+    res.render('./flights/show', { flight: flight });
     // render the flights/show page with the flight
-    res.render('flights/show', { flight: flight });
-})
+});
 
-// router.get('/departureResults', (req, res) => {
-//     // get back the search item
-//     console.log('>>>> SEARCH DATA', req.query)
-//     // use axios to find the results
-//     // render the flights/departureResults page
-// })
-const flightPromises = [];
-router.post('/new', async (req, res) => {
+
+router.post('/new', isLoggedIn, async (req, res) => {
+    const flightPromises = [];
     console.log('INFO NEEDED', Object.assign({}, req.body));
-    let IATAOrigin = await locationToIATA(req.body.origin);
-    let IATADestination = await locationToIATA(req.body.destination);
+    const IATAOrigin = await locationToIATA(req.body.origin);
+    const IATADestination = await locationToIATA(req.body.destination);
     const departureFlight = axios.get('https://api.travelpayouts.com/aviasales/v3/prices_for_dates', {
         params: {
             origin: IATAOrigin,
             destination: IATADestination,
-            departure_at: req.body.departure_at,
+            departure_at: req.body.departureDate,
             return_at: '',
             sorting: 'price',
             direct: true,
@@ -65,7 +67,7 @@ router.post('/new', async (req, res) => {
         params: {
             origin: IATADestination,
             destination: IATAOrigin,
-            departure_at: req.body.departure_at,
+            departure_at: req.body.returnDate,
             return_at: '',
             sorting: 'price',
             direct: true,
@@ -75,13 +77,25 @@ router.post('/new', async (req, res) => {
             token: process.env.API_TOKEN
         }
     })
+    console.log(IATAOrigin);
+    console.log(IATADestination);
+    console.log(req.body);
     flightPromises.push(departureFlight);
     flightPromises.push(returnFlight);
     Promise.all(flightPromises).then(([departureResponse, returnResponse]) => {
+        console.log('DEPARTURE RESULTS');
         console.log(departureResponse.data.data);
+        console.log('RETURN RESULTS');
         console.log(returnResponse.data.data);
-        res.render('flights/departureResults', { data: departureResponse.data.data });
-
+        if (departureResponse.data.data[0] && returnResponse.data.data[0]) {
+            res.render('flights/departureResults', {
+                departureFlight: departureResponse.data.data[0],
+                returnFlight: returnResponse.data.data[0]
+            });
+        } else {
+            // res.redirect('back');
+            res.render('flights/new', { didSearchFail: true })
+        }
     })
 
 
@@ -95,20 +109,69 @@ router.post('/new', async (req, res) => {
     }
 });
 
+//2022-09-29T08:46:00-07:00
 
-router.post('/show', async (req, res) => {
+router.post('/show', isLoggedIn, async (req, res) => {
     // print req.body to view form inputs
     console.log('**** /show', req.body);
+    const newDate = new Date().toISOString();
     // create flight for database
-    const newFlight = await db.Flight.create({
+    let newFlight = await db.Flight.create({
         origin: req.body.origin,
         destination: req.body.destination,
-        departure_at: req.body.departure_at,
-        userId: parseInt(req.body.userId)
+        departureAt: req.body.departureAt,
+        returnAt: req.body.returnAt,
+        userId: req.user.id,
+        createdAt: newDate,
+        updatedAt: newDate
     });
-    console.log(newFlight.toJSON());
+    newFlight = newFlight.toJSON();
+    console.log(newFlight);
     // res.redirect to all following flights
-    res.redirect('/flights')
+    res.redirect('flights/show', { flights: newFlight });
 });
+
+router.post('/index', isLoggedIn, async (req, res) => {
+    //get all of the flights from the database
+    let flights = await db.Flight.findAll();
+    flights = flights.map(f => f.toJSON()); // removes all of the unnecessary data
+    console.log(flights); // shows me all of the flight data -> previous Values
+    //render the (flights/index) page
+    res.render('flights/index', { flights: flights });
+});
+
+router.post('/addFlight', async (req, res) => {
+    //add info into table
+    await db.Flight.create({
+        origin: req.body.origin,
+        destination: req.body.destination,
+        departureAt: req.body.departureAt,
+        returnAt: req.body.returnAt,
+        userId: req.user.id
+    });
+    const flights = await db.Flight.findAll({
+        where: { userId: req.user.id }
+    })
+    console.log(flights);
+    //res.render into flights/index
+    res.render('flights/index', { flights: flights });
+})
+
+router.put('/edit/:id', (req, res) => {
+    res.render('./flights/edit');
+});
+
+
+router.delete('/deleteFlight/:id', async (req, res) => {
+    await db.Flight.destroy({
+        where: { id: parseInt(req.params.id) }
+    });
+    const flights = await db.Flight.findAll();
+    console.log(flights);
+    res.render('flights/index', { flights: flights });
+});
+
+
+
 
 module.exports = router;

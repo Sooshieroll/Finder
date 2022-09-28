@@ -18,8 +18,8 @@ module.exports = (sequelize, DataTypes) => {
     currency: DataTypes.STRING,
     origin: DataTypes.STRING,
     destination: DataTypes.STRING,
-    departureAt: DataTypes.DATEONLY,
-    returnAt: DataTypes.DATEONLY,
+    departureAt: DataTypes.DATE,
+    returnAt: DataTypes.DATE,
     direct: DataTypes.BOOLEAN,
     sorting: DataTypes.STRING,
     userId: DataTypes.INTEGER

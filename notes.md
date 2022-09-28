@@ -108,3 +108,15 @@
 </p>
 <p>Duration: <%= flight.duration %> minutes
 </p>
+
+
+<h2>Profile Page</h2>
+
+<h3>Welcome to your PROFILE</h3>
+
+<p>Id: <%= id %>
+</p>
+<p>Name: <%= name %>
+</p>
+<p>Email: <%= email %>
+</p>

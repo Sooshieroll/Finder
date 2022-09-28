@@ -1,16 +1,48 @@
-<h1>Here is a list of flights that you are following</h1>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flights that you are following</title>
+
+</head>
+
+<body>
+
+</body>
+
+</html>
+<div class="navbar">
+    <%- include('../features/navbar.ejs') %>
+</div>
+
+<h1 class="following">Here is a list of flights that you are following:</h1>
 
 <% flights.forEach(f=> { %>
-    <p>Origin: <%= f.origin %>
+    <p class="following">Origin: <%= f.origin %>
     </p>
-    <p>Destination: <%= f.destination%>
+    <p class="following">Destination: <%= f.destination%>
     </p>
-    <p>Departure At: <%= f.departure_at %>
+    <p class="following">Departure At: <%= f.departureAt %>
     </p>
-    <p>Cost: $<%= f.price %>
+    <p class="following">Flight ID: <%= f.id %>
     </p>
-    <p>Duration: <%= f.duration %> minutes
-    </p>
-    <a href="/flights/<%= f.id %>">Flight Info</a>
-    <br>
-    <% }) %>
+
+    <% let flightInfo=`/flights/show/${f.id}` %>
+        <div class="following"><a href="<%=flightInfo%>">Flight Info</a></div>
+
+
+        <% let editFlights=`/flights/edit/${f.id}` %>
+            <div class="following"><a href="<%=editFlights%>">Edit</a></div>
+            <br>
+
+
+            <% let deleteFlight=`/flights/deleteFlight/${f.id}?_method=DELETE`; %>
+                <form class="following" method="POST" action="<%= deleteFlight %>">
+                    <input type="submit" value="Delete">
+                </form>
+                <div class="line-1"></div>
+
+                <% }) %>
