@@ -7,7 +7,7 @@ const flash = require('connect-flash');
 const passport = require('./config/ppConfig');
 const isLoggedIn = require('./middleware/isLoggedIn');
 const db = require('./models');
-const methodOverride = require('method-Override');
+const methodOverride = require('method-override');
 
 const SECRET_SESSION = process.env.SECRET_SESSION;
 console.log('yooooooo.... >>>', SECRET_SESSION);
