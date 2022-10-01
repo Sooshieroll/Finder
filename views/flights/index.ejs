@@ -35,16 +35,12 @@
     <% let flightInfo=`/flights/show/${f.id}` %>
         <div class="following"><a href="<%=flightInfo%>">Flight Info</a></div>
 
+        <br>
 
-        <% let editFlights=`/flights/edit/${f.id}` %>
-            <div class="following"><a href="<%=editFlights%>">Edit</a></div>
-            <br>
+        <% let deleteFlight=`/flights/deleteFlight/${f.id}?_method=DELETE`; %>
+            <form class="following" method="POST" action="<%= deleteFlight %>">
+                <input type="submit" value="Delete">
+            </form>
+            <div class="line-1"></div>
 
-
-            <% let deleteFlight=`/flights/deleteFlight/${f.id}?_method=DELETE`; %>
-                <form class="following" method="POST" action="<%= deleteFlight %>">
-                    <input type="submit" value="Delete">
-                </form>
-                <div class="line-1"></div>
-
-                <% }) %>
+            <% }) %>

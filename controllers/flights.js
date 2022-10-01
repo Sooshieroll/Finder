@@ -172,7 +172,9 @@ router.delete('/deleteFlight/:id', async (req, res) => {
     res.render('flights/index', { flights: flights });
 });
 
-
+router.get('*', (req, res) => {
+    res.render('./404');
+})
 
 
 module.exports = router;
